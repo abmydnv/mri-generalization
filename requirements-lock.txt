@@ -19,3 +19,4 @@ sympy==1.14.0
 threadpoolctl==3.8.0
 torch==2.15.0+cpu
 typing_extensions==4.16.0
+xlrd==2.0.2
