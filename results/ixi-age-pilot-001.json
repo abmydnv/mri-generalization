@@ -1,0 +1,94 @@
+{
+  "dataset": "IXI T1",
+  "disease_detection": false,
+  "seed": 42,
+  "feature_cache_key": "b456ef7e019de5baeb629b92edf57b74f288cdf4a4042a380f7e85e4bd044b1b",
+  "holdout_site": null,
+  "participants": 561,
+  "selected_alpha": 1000.0,
+  "partitions": {
+    "train": {
+      "count": 336,
+      "sites": {
+        "Guys": 187,
+        "HH": 108,
+        "IOP": 41
+      },
+      "age_mean": 48.68355822821942,
+      "age_min": 19.980835044490075,
+      "age_max": 86.3189596167009
+    },
+    "validation": {
+      "count": 112,
+      "sites": {
+        "Guys": 63,
+        "HH": 36,
+        "IOP": 13
+      },
+      "age_mean": 48.98149506209055,
+      "age_min": 20.071184120465436,
+      "age_max": 83.81108829568788
+    },
+    "test": {
+      "count": 113,
+      "sites": {
+        "HH": 36,
+        "Guys": 63,
+        "IOP": 14
+      },
+      "age_mean": 48.074988037045784,
+      "age_min": 20.908966461327857,
+      "age_max": 83.45790554414785
+    }
+  },
+  "validation_search": [
+    {
+      "alpha": 1.0,
+      "validation_mae_years": 12.831865252619119
+    },
+    {
+      "alpha": 10.0,
+      "validation_mae_years": 12.810834415677776
+    },
+    {
+      "alpha": 100.0,
+      "validation_mae_years": 12.63128781159987
+    },
+    {
+      "alpha": 1000.0,
+      "validation_mae_years": 11.843018626072034
+    },
+    {
+      "alpha": 10000.0,
+      "validation_mae_years": 11.94399502173174
+    }
+  ],
+  "test": {
+    "mae_years": 15.712410351016445,
+    "rmse_years": 47.42780128716458,
+    "r2": -6.360708927793247
+  },
+  "test_mae_bootstrap_95": [
+    10.247970887364685,
+    24.71932436289258
+  ],
+  "training_mean_baseline": {
+    "mae_years": 15.476675267879317,
+    "rmse_years": 17.491867375070814,
+    "r2": -0.001211922959746481
+  },
+  "comparison_to_mean_baseline": {
+    "mae_reduction_years": -0.23573508313712865,
+    "paired_bootstrap_95": [
+      -9.342227992647498,
+      5.486301049253606
+    ]
+  },
+  "limitations": [
+    "Exploratory native-grid intensity baseline; no registration or skull stripping.",
+    "Single dataset, healthy volunteers only; no clinical or Alzheimer validation.",
+    "Participant-disjoint results do not establish robustness to other populations."
+  ],
+  "source": "https://brain-development.org/ixi-dataset/",
+  "license": "CC BY-SA 3.0"
+}

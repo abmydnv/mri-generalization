@@ -3,3 +3,4 @@ numpy
 scikit-learn
 nibabel
 pillow
+xlrd==2.0.2

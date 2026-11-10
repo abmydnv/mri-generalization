@@ -4,7 +4,16 @@ Work in progress: a reproducible study of participant-level evaluation in brain 
 
 ## Current milestone
 
-A manifest validator, deterministic participant-level splitter, local volume-to-slice preprocessing, small CNN training pipeline, majority baseline, participant-level evaluation and bootstrap uncertainty estimates. No real MRI data have been acquired or used for training. Synthetic examples are software checks, not scientific results.
+A manifest validator, participant-level splitter, volume preprocessing, CNN classification pipeline, and an exploratory real-data IXI age-regression pilot. CUDA training has been verified on an RTX 5060. The age pilot uses 561 eligible participants; the CNN checks use synthetic images only.
+
+## First real-data results
+
+| Evaluation | Test participants | Ridge MAE (years) | Training-mean baseline MAE (years) |
+| --- | ---: | ---: | ---: |
+| Participant-disjoint, site-stratified | 113 | 15.71 | 15.48 |
+| Unseen scanner site (IOP) | 68 | 20.89 | 16.29 |
+
+**The initial native-grid ridge model did not beat the simple baseline.** These are exploratory negative results, not clinical performance claims. See [the pilot report](results/ixi-pilot-report.md) for uncertainty, failure analysis, and next steps. Aggregate machine-readable reports are included in `results/`; original MRI, metadata, participant partitions, and models are excluded from Git.
 
 ## Run
 
@@ -30,7 +39,7 @@ No claims of clinical usefulness or novel leakage discovery are made.
 
 ## Training environment
 
-Create a Python 3.12 virtual environment and install `requirements.txt`. A CPU-only PyTorch installation is sufficient for tests and smoke training. Install a compatible CUDA build separately for NVIDIA training, following https://pytorch.org/get-started/locally/. The local CUDA download stalled; GPU training is not yet verified. Exact tested CPU dependency versions are recorded in `requirements-lock.txt` after verification.
+Create a Python 3.12 virtual environment and install `requirements.txt`. A CPU-only PyTorch installation is sufficient for tests and smoke training. The local RTX 5060 has been verified with PyTorch 2.7.1+cu128: CUDA forward/backward execution and synthetic CNN training both passed. Exact tested CPU and GPU dependencies are recorded in `requirements-lock.txt` and `requirements-gpu-lock.txt`. Follow https://pytorch.org/get-started/locally/ for other hardware.
 
 ```powershell
 python -m venv .venv
@@ -53,6 +62,8 @@ The preprocessing assumes documented, aligned volumes; it does not perform skull
 Data access status and a draft research statement: [data-access.md](docs/data-access.md).
 
 ## Background
+
+The active real-data pilot uses openly licensed IXI healthy-volunteer MRI to predict chronological age. It does not classify Alzheimer's disease. See the [IXI protocol](docs/ixi-protocol.md) for predefined evaluation, scanner-site testing, data attribution, and limitations. The binary MRI classification code remains available as a separate implementation foundation.
 
 - Published review: https://doi.org/10.1145/3726122.3726160
 - Leakage research: https://pmc.ncbi.nlm.nih.gov/articles/PMC8604922/

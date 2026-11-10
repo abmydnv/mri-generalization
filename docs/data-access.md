@@ -1,5 +1,7 @@
 # Data access status
 
+Active route: IXI healthy-volunteer brain MRI, openly downloadable under CC BY-SA 3.0, with official age metadata. The project now includes an age-regression pilot; it makes no disease-detection claim. See [ixi-protocol.md](ixi-protocol.md). OASIS and MIRIAD notes below document earlier access investigations.
+
 OASIS-1 was the initial proposed dataset. No OASIS images have been downloaded. The project owner confirmed that they have no current institutional email or research affiliation; the current OASIS application route is therefore unavailable. Do not bypass the application using third-party mirrors or claim an affiliation.
 
 Alternative under investigation: UCL MIRIAD, a longitudinal Alzheimer MRI dataset with registration and manual account approval. The official documentation does not establish that an independent applicant will be approved; access remains unverified. Avoid repeated scans across participant splits. No application has been submitted and no data have been downloaded.
