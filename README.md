@@ -4,7 +4,7 @@ Work in progress: a reproducible study of participant-level evaluation in brain 
 
 ## Current milestone
 
-A dependency-free manifest validator and deterministic participant-level splitter. This prevents images from one participant appearing in multiple partitions and rejects inconsistent labels and duplicate image paths. No MRI data have been acquired and no models have been trained. Synthetic examples are software checks, not scientific results.
+A manifest validator, deterministic participant-level splitter, local volume-to-slice preprocessing, small CNN training pipeline, majority baseline, participant-level evaluation and bootstrap uncertainty estimates. No real MRI data have been acquired or used for training. Synthetic examples are software checks, not scientific results.
 
 ## Run
 
@@ -27,6 +27,30 @@ The splitter stratifies participants by label into approximately 60/20/20 train/
 4. Reproduce the known impact of slice-level leakage as an explicitly invalid comparison.
 
 No claims of clinical usefulness or novel leakage discovery are made.
+
+## Training environment
+
+Create a Python 3.12 virtual environment and install `requirements.txt`. A CPU-only PyTorch installation is sufficient for tests and smoke training. Install a compatible CUDA build separately for NVIDIA training, following https://pytorch.org/get-started/locally/. The local CUDA download stalled; GPU training is not yet verified. Exact tested CPU dependency versions are recorded in `requirements-lock.txt` after verification.
+
+```powershell
+python -m venv .venv
+.\.venv\Scripts\python.exe -m pip install -r requirements.txt
+.\.venv\Scripts\python.exe -m unittest discover -s tests -v
+.\.venv\Scripts\python.exe smoke_train.py
+```
+
+The smoke test creates random fictitious images under ignored `artifacts/`. Its scores have no scientific meaning. Experiment directories refuse overwrites; choose a new output directory for each run.
+
+For curated real volumes (after data access and cohort review):
+
+```powershell
+python prepare_volumes.py data/curated-volumes.csv --root data --output artifacts/prepared
+python train.py artifacts/prepared/manifest.csv --root artifacts/prepared --output artifacts/experiment-001
+```
+
+The preprocessing assumes documented, aligned volumes; it does not perform skull stripping, registration, or quality control. Labels and cohort selection require a separate dataset-specific audit. Central slices are a baseline representation. The CNN averages slice probabilities within each participant, selects its checkpoint on validation balanced accuracy, and evaluates the held-out test partition once. The default 200 bootstrap replicates are an initial diagnostic; small cohorts produce unstable intervals. GPU reproducibility is not guaranteed across hardware or library versions.
+
+Data access status and a draft research statement: [data-access.md](docs/data-access.md).
 
 ## Background
 
